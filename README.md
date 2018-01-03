@@ -11,5 +11,4 @@ Active Filter:
 https://raw.githubusercontent.com/amokrunner/lighterpack-userscripts/master/activeFilter.js
 
 Image Height:
-URL:
 https://raw.githubusercontent.com/amokrunner/lighterpack-userscripts/master/imageHeight.js
