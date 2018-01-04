@@ -56,7 +56,6 @@ var lpCheckLists = {
                 var cookie = Cookies.get('lpCheckLists.' + lpCheckLists.currentId);
                 if (cookie!==undefined) {
                     lpCheckLists.data[lpCheckLists.currentId] = JSON.parse(cookie);
-                    console.log(lpCheckLists.data);
                 } else {
                     lpCheckLists.data = {};
                 }
@@ -64,8 +63,10 @@ var lpCheckLists = {
                     lpCheckLists.data[lpCheckLists.currentId] = {};
                 } else {
                     Object.keys(lpCheckLists.data[lpCheckLists.currentId]).forEach(function(key) {
-                        $('.lpItem[id="'+key+'"] input[type="checkbox"]').prop('checked',true);
-                        $('.lpItem[id="'+key+'"]').addClass('lpItemChecked');
+                        if(lpCheckLists.data[lpCheckLists.currentId][key]){
+                            $('.lpItem[id="'+key+'"] input[type="checkbox"]').prop('checked',true);
+                            $('.lpItem[id="'+key+'"]').addClass('lpItemChecked');
+                        }
                     });
                 }
             }
