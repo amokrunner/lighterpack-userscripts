@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         LighterPack Checklist
 // @namespace    https://lighterpack.com/
-// @version      0.7
+// @version      0.71
 // @description  Upgrades for lighterpack!
 // @author       amokrunner
 // @match        https://lighterpack.com/*
@@ -69,7 +69,6 @@ var lpCheckLists;
                 } else {
                     Object.keys(lpCheckLists.data[lpCheckLists.currentId]).forEach(function(key) {
                         if(lpCheckLists.data[lpCheckLists.currentId][key]){
-                            //$('.lpItem[id="'+key+'"] input[type="checkbox"]').prop('checked',true);
                             $('.lpItem[id="'+key+'"]').addClass('lpItemChecked');
                         }
                     });
@@ -100,6 +99,9 @@ var lpCheckLists;
             #checkListInstructions {
                 text-align: right;
                 margin-bottom: -2em;
+            }
+            #checkListUrl {
+                padding-top: 1em;
             }
           </style>
         `);
