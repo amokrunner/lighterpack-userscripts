@@ -10,6 +10,8 @@
 
 (function() {
     'use strict';
+    if ($('body').hasClass('modImageHeight')) { return; }
+    $('body').addClass('modImageHeight');
 
     $('head').append(`
       <style>

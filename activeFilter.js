@@ -10,6 +10,8 @@
 
 (function() {
     'use strict';
+    if ($('body').hasClass('modActiveFilter')) { return; }
+    $('body').addClass('modActiveFilter');
 
     $('#librarySearch').before('<div><input type="checkbox" id="librarySearchFilter" name="librarySearchFilter" /><label for="librarySearchFilter">Include Active Items</label></div>');
     $('#library').addClass('lpHideActive');

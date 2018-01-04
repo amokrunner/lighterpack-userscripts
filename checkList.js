@@ -8,13 +8,18 @@
 // @grant        none
 // ==/UserScript==
 
-var lpCheckLists = {
-    currentId: window.location.pathname.split(/[/r ]+/).pop(),
-    data: {},
-};
+var lpCheckLists;
 
 (function() {
     'use strict';
+    if ($('body').hasClass('modCheckList')) { return; }
+    $('body').addClass('modCheckList');
+    
+    lpCheckLists = {
+        currentId: window.location.pathname.split(/[/r ]+/).pop(),
+        data: {},
+    };
+    
     if (!lpCheckLists.currentId.length) {
         // must be homepage:
         $('#share').children().first().html($('#share').children().first().html().replace('Share','Actions'));
