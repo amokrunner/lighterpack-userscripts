@@ -15,45 +15,43 @@ var lpCheckLists = {
 
 (function() {
     'use strict';
+    if (!lpCheckLists.currentId.length) {
+        // must be homepage:
+        $('#share').children().first().html($('#share').children().first().html().replace('Share','Actions'));
+        $('#csvUrl').after('<a id="checkListUrl" class="lpHref" href="'+$('#shareUrl').val()+'#checklist">CheckList</a>');
+        $('#share').mouseover(function(){
+            setTimeout(function(){
+                $('#checkListUrl').attr('href',$('#shareUrl').val()+'#checklist');
+            },200);
+        });
+    } else {
+        // add checkboxes
+        $('.lpItem').each(function(){
+            $(this).prepend('<input type="checkbox"/>');
+        });
 
-    $.getScript(
-        'https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js',
-        function(){
-            if (!lpCheckLists.currentId.length) {
-                // must be homepage:
-                $('#share').children().first().html($('#share').children().first().html().replace('Share','Actions'));
-                $('#csvUrl').after('<a id="checkListUrl" class="lpHref" href="'+$('#shareUrl').val()+'#checklist">CheckList</a>');
-                $('#share').mouseover(function(){
-                    setTimeout(function(){
-                        $('#checkListUrl').attr('href',$('#shareUrl').val()+'#checklist');
-                    },200);
-                });
+        $('.lpItem input[type="checkbox"]').change(function(){
+            lpCheckLists.data[lpCheckLists.currentId][$(this).parent().prop('id')] = $(this).prop('checked');
+            Cookies.set('lpCheckLists.' + lpCheckLists.currentId,JSON.stringify(lpCheckLists.data[lpCheckLists.currentId]), { expires: 10 });
+            if($(this).prop('checked')) {
+                $(this).parent().addClass('lpItemChecked');
             } else {
-                // add checkboxes
-                $('.lpItem').each(function(){
-                    $(this).prepend('<input type="checkbox"/>');
-                });
+                $(this).parent().removeClass('lpItemChecked');
+            }
+        });
 
-                $('.lpItem input[type="checkbox"]').change(function(){
-                    lpCheckLists.data[lpCheckLists.currentId][$(this).parent().prop('id')] = $(this).prop('checked');
-                    Cookies.set('lpCheckLists.' + lpCheckLists.currentId,JSON.stringify(lpCheckLists.data[lpCheckLists.currentId]), { expires: 10 });
-                    if($(this).prop('checked')) {
-                        $(this).parent().addClass('lpItemChecked');
-                    } else {
-                        $(this).parent().removeClass('lpItemChecked');
-                    }
-                });
+        $('.lpItem').click(function(){
+            if ($(this).find('input[type="checkbox"]').prop('checked')) {
+                $(this).find('input[type="checkbox"]').prop('checked',false);
+            } else {
+                $(this).find('input[type="checkbox"]').prop('checked',true);
+            }
+            $(this).find('input[type="checkbox"]').change();
+        });
 
-                $('.lpItem').click(function(){
-                    if ($(this).find('input[type="checkbox"]').prop('checked')) {
-                        $(this).find('input[type="checkbox"]').prop('checked',false);
-                    } else {
-                        $(this).find('input[type="checkbox"]').prop('checked',true);
-                    }
-                    $(this).find('input[type="checkbox"]').change();
-                });
-
-
+        $.getScript(
+            'https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js',
+            function(){
                 // load data:
                 var cookie = Cookies.get('lpCheckLists.' + lpCheckLists.currentId);
                 if (cookie!==undefined) {
@@ -71,9 +69,8 @@ var lpCheckLists = {
                     });
                 }
             }
-        }
-    );
-
+        );
+    }
     if (lpCheckLists.currentId.length) {
         $('head').append(`
           <style>
