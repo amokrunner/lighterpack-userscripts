@@ -19,6 +19,9 @@ $.getScript('https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js');
     'use strict';
 
     setTimeout(function(){
+        if (!lpCheckLists.currentId.length) {
+            return;
+        }
     // add checkboxes
     $('.lpItem').each(function(){
         $(this).prepend('<input type="checkbox"/>');
