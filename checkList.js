@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         LighterPack Checklist
 // @namespace    https://lighterpack.com/
-// @version      0.6
+// @version      0.7
 // @description  Upgrades for lighterpack!
 // @author       amokrunner
 // @match        https://lighterpack.com/*
@@ -30,28 +30,28 @@ var lpCheckLists;
             },200);
         });
     } else {
-        // add checkboxes
-        $('.lpItem').each(function(){
-            $(this).prepend('<input type="checkbox"/>');
-        });
 
-        $('.lpItem input[type="checkbox"]').change(function(){
-            lpCheckLists.data[lpCheckLists.currentId][$(this).parent().prop('id')] = $(this).prop('checked');
+    
+        $('.lpList').prepend('<div id="checkListInstructions">Checklist Enabled.&nbsp;<a id="checkListAll" class="lpHref">Select all.</a>&nbsp;<a id="checkListNone" class="lpHref">Select none.</a></div>');
+        function checkListCheckAll(){
+            $('.lpItem').each(function(){
+                lpCheckLists.data[lpCheckLists.currentId][$(this).prop('id')] = $(this).hasClass('lpItemChecked');
+            });
             Cookies.set('lpCheckLists.' + lpCheckLists.currentId,JSON.stringify(lpCheckLists.data[lpCheckLists.currentId]), { expires: 10 });
-            if($(this).prop('checked')) {
-                $(this).parent().addClass('lpItemChecked');
-            } else {
-                $(this).parent().removeClass('lpItemChecked');
-            }
+        }
+        $('#checkListAll').click(function(){
+            $('.lpItem').addClass('lpItemChecked');
+            checkListCheckAll();
         });
-
+        $('#checkListNone').click(function(){
+            $('.lpItem').removeClass('lpItemChecked');
+            checkListCheckAll();
+        });
+    
         $('.lpItem').click(function(){
-            if ($(this).find('input[type="checkbox"]').prop('checked')) {
-                $(this).find('input[type="checkbox"]').prop('checked',false);
-            } else {
-                $(this).find('input[type="checkbox"]').prop('checked',true);
-            }
-            $(this).find('input[type="checkbox"]').change();
+            $(this).toggleClass('lpItemChecked');
+            lpCheckLists.data[lpCheckLists.currentId][$(this).prop('id')] = $(this).hasClass('lpItemChecked');
+            Cookies.set('lpCheckLists.' + lpCheckLists.currentId,JSON.stringify(lpCheckLists.data[lpCheckLists.currentId]), { expires: 10 });
         });
 
         $.getScript(
@@ -69,7 +69,7 @@ var lpCheckLists;
                 } else {
                     Object.keys(lpCheckLists.data[lpCheckLists.currentId]).forEach(function(key) {
                         if(lpCheckLists.data[lpCheckLists.currentId][key]){
-                            $('.lpItem[id="'+key+'"] input[type="checkbox"]').prop('checked',true);
+                            //$('.lpItem[id="'+key+'"] input[type="checkbox"]').prop('checked',true);
                             $('.lpItem[id="'+key+'"]').addClass('lpItemChecked');
                         }
                     });
@@ -83,6 +83,11 @@ var lpCheckLists;
             .lpItemChecked {
                 color:gray;
                 font-style: italic;
+                text-decoration: line-through;
+            }
+            .lpItemChecked:before {
+                content: "\\2713  ";
+                white-space: pre;
             }
             .lpItemChecked .lpItemImage {
                 filter: grayscale(100%);
@@ -91,6 +96,10 @@ var lpCheckLists;
             #csvUrl {
                 display: block;
                 margin-top: 15px;
+            }
+            #checkListInstructions {
+                text-align: right;
+                margin-bottom: -2em;
             }
           </style>
         `);
