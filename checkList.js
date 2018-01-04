@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         LighterPack Checklist
 // @namespace    https://lighterpack.com/
-// @version      0.2
+// @version      0.3
 // @description  Upgrades for lighterpack!
 // @author       amokrunner
 // @match        https://lighterpack.com/r/*
@@ -66,7 +66,14 @@ $.getScript('https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js');
 
     $('head').append(`
       <style>
-        .lpItemChecked{ color:gray !important; }
+        .lpItemChecked {
+            color:gray;
+            font-style: italic;
+        }
+        .lpItemChecked .lpItemImage {
+            filter: grayscale(100%);
+            opacity: 0.5;
+        }
       </style>
     `);
 
