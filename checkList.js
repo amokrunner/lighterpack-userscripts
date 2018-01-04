@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name         LighterPack Checklist
 // @namespace    https://lighterpack.com/
-// @version      0.5
+// @version      0.6
 // @description  Upgrades for lighterpack!
 // @author       amokrunner
-// @match        https://lighterpack.com/r/*
+// @match        https://lighterpack.com/*
 // @grant        none
 // ==/UserScript==
 
