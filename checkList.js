@@ -9,7 +9,7 @@
 // ==/UserScript==
 
 var lpCheckLists = {
-    currentId: window.location.pathname.split(/[/ ]+/).pop(),
+    currentId: window.location.pathname.split(/[/r ]+/).pop(),
     data: {},
 };
 
@@ -63,8 +63,6 @@ var lpCheckLists = {
                     $('.lpItem[id="'+key+'"]').addClass('lpItemChecked');
                 });
             }
-
-
         }
     );
 
