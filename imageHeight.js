@@ -4,7 +4,7 @@
 // @version      1.0
 // @description  Upgrades for lighterpack!
 // @author       amokrunner
-// @match        https://lighterpack.com/
+// @match        https://lighterpack.com/*
 // @grant        none
 // ==/UserScript==
 
