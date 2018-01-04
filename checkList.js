@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         LighterPack Checklist
 // @namespace    https://lighterpack.com/
-// @version      0.71
+// @version      0.72
 // @description  Upgrades for lighterpack!
 // @author       amokrunner
 // @match        https://lighterpack.com/*
@@ -23,7 +23,7 @@ var lpCheckLists;
     if (!lpCheckLists.currentId.length) {
         // must be homepage:
         $('#share').children().first().html($('#share').children().first().html().replace('Share','Actions'));
-        $('#csvUrl').after('<a id="checkListUrl" class="lpHref" href="'+$('#shareUrl').val()+'#checklist">CheckList</a>');
+        $('#csvUrl').after('<a id="checkListUrl" class="lpHref" href="'+$('#shareUrl').val()+'#checklist"><b>&#10003</b>CheckList</a>');
         $('#share').mouseover(function(){
             setTimeout(function(){
                 $('#checkListUrl').attr('href',$('#shareUrl').val()+'#checklist');
