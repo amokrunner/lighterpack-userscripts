@@ -78,7 +78,7 @@ var lpCheckLists;
                 }
             );
         } else {
-            $('.lpCategories').before('<div id="checkListInstructions">Checklist off.&nbsp;<a id="checkListEnable" class="lpHref">Enable.</a></div>');
+            $('.lpCategories').before('<div id="checkListInstructions">Checklist disabled.&nbsp;<a id="checkListEnable" class="lpHref">Enable.</a></div>');
             $('#checkListEnable').click(function(){
                 window.location.href = 'https://lighterpack.com/r/'+lpCheckLists.currentId+'#checklist';
                 location.reload();
