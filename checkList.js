@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         LighterPack Checklist
 // @namespace    https://lighterpack.com/
-// @version      0.73
+// @version      0.80
 // @description  Upgrades for lighterpack!
 // @author       amokrunner
 // @match        https://lighterpack.com/*
@@ -30,51 +30,60 @@ var lpCheckLists;
             },200);
         });
     } else {
-
-    
-        $('.lpList').prepend('<div id="checkListInstructions">Checklist Enabled.&nbsp;<a id="checkListAll" class="lpHref">Select all.</a>&nbsp;<a id="checkListNone" class="lpHref">Select none.</a></div>');
-        function checkListCheckAll(){
-            $('.lpItem').each(function(){
-                lpCheckLists.data[lpCheckLists.currentId][$(this).prop('id')] = $(this).hasClass('lpItemChecked');
-            });
-            Cookies.set('lpCheckLists.' + lpCheckLists.currentId,JSON.stringify(lpCheckLists.data[lpCheckLists.currentId]), { expires: 10 });
-        }
-        $('#checkListAll').click(function(){
-            $('.lpItem').addClass('lpItemChecked');
-            checkListCheckAll();
-        });
-        $('#checkListNone').click(function(){
-            $('.lpItem').removeClass('lpItemChecked');
-            checkListCheckAll();
-        });
-    
-        $('.lpItem').click(function(){
-            $(this).toggleClass('lpItemChecked');
-            lpCheckLists.data[lpCheckLists.currentId][$(this).prop('id')] = $(this).hasClass('lpItemChecked');
-            Cookies.set('lpCheckLists.' + lpCheckLists.currentId,JSON.stringify(lpCheckLists.data[lpCheckLists.currentId]), { expires: 10 });
-        });
-
-        $.getScript(
-            'https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js',
-            function(){
-                // load data:
-                var cookie = Cookies.get('lpCheckLists.' + lpCheckLists.currentId);
-                if (cookie!==undefined) {
-                    lpCheckLists.data[lpCheckLists.currentId] = JSON.parse(cookie);
-                } else {
-                    lpCheckLists.data = {};
-                }
-                if (lpCheckLists.data[lpCheckLists.currentId]===undefined) {
-                    lpCheckLists.data[lpCheckLists.currentId] = {};
-                } else {
-                    Object.keys(lpCheckLists.data[lpCheckLists.currentId]).forEach(function(key) {
-                        if(lpCheckLists.data[lpCheckLists.currentId][key]){
-                            $('.lpItem[id="'+key+'"]').addClass('lpItemChecked');
-                        }
-                    });
-                }
+        if(window.location.hash == '#checklist'){
+            $('.lpCategories').before('<div id="checkListInstructions">Checklist Enabled.&nbsp;<a id="checkListAll" class="lpHref">Select all.</a>&nbsp;<a id="checkListNone" class="lpHref">Select none.</a>&nbsp;<a id="checkListExit" class="lpHref">Exit.</a></div>');
+            function checkListCheckAll(){
+                $('.lpItem').each(function(){
+                    lpCheckLists.data[lpCheckLists.currentId][$(this).prop('id')] = $(this).hasClass('lpItemChecked');
+                });
+                Cookies.set('lpCheckLists.' + lpCheckLists.currentId,JSON.stringify(lpCheckLists.data[lpCheckLists.currentId]), { expires: 10 });
             }
-        );
+            $('#checkListAll').click(function(){
+                $('.lpItem').addClass('lpItemChecked');
+                checkListCheckAll();
+            });
+            $('#checkListNone').click(function(){
+                $('.lpItem').removeClass('lpItemChecked');
+                checkListCheckAll();
+            });
+            $('#checkListExit').click(function(){
+                window.location.href = 'https://lighterpack.com/r/'+lpCheckLists.currentId;
+            });
+        
+            $('.lpItem').click(function(){
+                $(this).toggleClass('lpItemChecked');
+                lpCheckLists.data[lpCheckLists.currentId][$(this).prop('id')] = $(this).hasClass('lpItemChecked');
+                Cookies.set('lpCheckLists.' + lpCheckLists.currentId,JSON.stringify(lpCheckLists.data[lpCheckLists.currentId]), { expires: 10 });
+            });
+
+            $.getScript(
+                'https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js',
+                function(){
+                    // load data:
+                    var cookie = Cookies.get('lpCheckLists.' + lpCheckLists.currentId);
+                    if (cookie!==undefined) {
+                        lpCheckLists.data[lpCheckLists.currentId] = JSON.parse(cookie);
+                    } else {
+                        lpCheckLists.data = {};
+                    }
+                    if (lpCheckLists.data[lpCheckLists.currentId]===undefined) {
+                        lpCheckLists.data[lpCheckLists.currentId] = {};
+                    } else {
+                        Object.keys(lpCheckLists.data[lpCheckLists.currentId]).forEach(function(key) {
+                            if(lpCheckLists.data[lpCheckLists.currentId][key]){
+                                $('.lpItem[id="'+key+'"]').addClass('lpItemChecked');
+                            }
+                        });
+                    }
+                }
+            );
+        } else {
+            $('.lpCategories').before('<div id="checkListInstructions">Checklist off.&nbsp;<a id="checkListEnable" class="lpHref">Enable.</a></div>');
+            $('#checkListEnable').click(function(){
+                window.location.href = 'https://lighterpack.com/r/'+lpCheckLists.currentId+'#checklist';
+                location.reload();
+            });
+        }
     }
     if (lpCheckLists.currentId.length) {
         $('head').append(`
@@ -98,8 +107,8 @@ var lpCheckLists;
                 margin-top: 15px;
             }
             #checkListInstructions {
-                text-align: right;
-                margin-bottom: -2em;
+                font-weight: bold;
+                padding: 1em;
             }
             #checkListUrl {
                 padding-top: 1em;
