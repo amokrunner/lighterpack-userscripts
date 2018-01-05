@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         LighterPack Checklist
 // @namespace    https://lighterpack.com/
-// @version      0.72
+// @version      0.73
 // @description  Upgrades for lighterpack!
 // @author       amokrunner
 // @match        https://lighterpack.com/*
@@ -87,6 +87,7 @@ var lpCheckLists;
             .lpItemChecked:before {
                 content: "\\2713  ";
                 white-space: pre;
+                text-decoration: none;
             }
             .lpItemChecked .lpItemImage {
                 filter: grayscale(100%);
