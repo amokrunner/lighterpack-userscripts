@@ -10,4 +10,7 @@
 
 (function() {
     'use strict';
+    if ($('body').hasClass('modTouch')) { return; }
+    $('body').addClass('modTouch');
+    $.getScript('https://cdn.rawgit.com/furf/jquery-ui-touch-punch/master/jquery.ui.touch-punch.min.js');
 })();
