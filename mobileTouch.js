@@ -24,22 +24,21 @@
   @media only screen and (max-device-width : 1024px) {
   
       .lpItemsHeader {
-        height: 4em;
-        vertial-align: center;
+        min-height: 4em;
       } 
         .lpHandleCell { 
         width: 4em;
-        height:4em;
+        min-height:4em;
         position: absolute;
         right:0;
         }
        .lpItem .lpHandle, .lpItemsHeader .lpHandle { 
         width: 100%;
-        height: 3.5em;
+        min-height: 3.5em;
         margin-top: 0.25em;
         }
         .lpItem, .lpItemsHeader {
-            height: 4em;
+            min-height: 4em;
             padding-right: 4em;
         }
         .lpItems .lpHandle {
