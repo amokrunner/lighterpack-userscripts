@@ -21,7 +21,7 @@
     }); */
     $('head').append(`
       <style>
-  @media only screen and (max-width: 720px) {
+  
       .lpItemsHeader {
         height: 4em;
         vertial-align: center;
@@ -44,7 +44,7 @@
         .lpItems .lpHandle {
         visibility: visible;
         }
-}
+
       </style>
     `);
 })();
