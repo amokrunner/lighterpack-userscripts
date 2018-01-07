@@ -13,4 +13,16 @@
     if ($('body').hasClass('modTouch')) { return; }
     $('body').addClass('modTouch');
     $.getScript('https://cdn.rawgit.com/furf/jquery-ui-touch-punch/master/jquery.ui.touch-punch.min.js');
+    
+    $('head').append(`
+      <style>
+        .lpHandleCell { 
+        width: 80px;
+        position: absolute;
+        }
+        .lpHandle { 
+        width: 100%;
+        }
+      </style>
+    `);
 })();
