@@ -21,6 +21,7 @@
     }); */
     $('head').append(`
       <style>
+  @media only screen and (max-device-width : 1024px) {
   
       .lpItemsHeader {
         height: 4em;
@@ -44,7 +45,7 @@
         .lpItems .lpHandle {
         visibility: visible;
         }
-
+}
       </style>
     `);
 })();
