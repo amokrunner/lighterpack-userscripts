@@ -10,7 +10,7 @@
 
 (function() {
     'use strict';
-    if (!window.location.pathname.split(/[/r ]+/).pop().length) { return; }
+    if (window.location.pathname.split(/[/r ]+/).pop().length) { return; }
     if ($('body').hasClass('modTouch')) { return; }
     $('body').addClass('modTouch');
     $.getScript('https://cdn.rawgit.com/furf/jquery-ui-touch-punch/master/jquery.ui.touch-punch.min.js');
