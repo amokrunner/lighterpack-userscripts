@@ -16,7 +16,13 @@
     $('head').append(`
       <style>
         .lpImageCell{ text-align: center !important; }
-        .lpItemImage { max-height: 4em !important; }
+        .lpItemImage { 
+object-fit: cover; 
+width:4em; 
+height:4em; 
+}
+
+
         @media only screen and (max-width: 720px) {
             .lpShowImages .lpItem.lpItemHasImage {
                 min-height: 4em !important;
