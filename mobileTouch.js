@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         LighterPack Mobile Touch Fix
 // @namespace    https://lighterpack.com/
-// @version      0.11
+// @version      0.12
 // @description  Upgrades for lighterpack!
 // @author       amokrunner
 // @match        https://lighterpack.com/*
@@ -10,6 +10,7 @@
 
 (function() {
     'use strict';
+    if (!window.location.pathname.split(/[/r ]+/).pop().length) { return; }
     if ($('body').hasClass('modTouch')) { return; }
     $('body').addClass('modTouch');
     $.getScript('https://cdn.rawgit.com/furf/jquery-ui-touch-punch/master/jquery.ui.touch-punch.min.js');
